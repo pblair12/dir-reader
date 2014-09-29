@@ -1,0 +1,32 @@
+{
+  "name": "dir-reader",
+  "version": "0.0.1",
+  "description": "This module will read a directory of files and return an array containing an entry for each file.  Each entry will have a fileName and a fileContents property.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pblair12/dir-reader.git"
+  },
+  "keywords": [
+    "directory",
+    "reader"
+  ],
+  "author": "pblair12",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pblair12/dir-reader/issues"
+  },
+  "homepage": "https://github.com/pblair12/dir-reader",
+  "devDependencies": {
+    "mocha": "~1.21.4",
+    "should": "~4.0.4"
+  },
+  "dependencies": {
+    "foreach": "~2.0.5",
+    "assert": "~1.1.2",
+    "readify": "~1.0.3"
+  }
+}
