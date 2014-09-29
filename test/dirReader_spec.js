@@ -9,7 +9,7 @@ describe("Registration", function () {
       dirItems = data;
       done();
     };
-    dirReader.getDirItems({dirPath: './test/mock/'}, callback);
+    dirReader.getDirItems('./test/mock/', callback);
   });
 
   // happy path
@@ -32,7 +32,7 @@ describe("Registration", function () {
         dirItems[1].fileContent.should.equal('file2 contents');
         done();
       };
-      dirReader.getFileContents({dirItem: dirItems[1]}, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
     });
   });
 
@@ -43,7 +43,7 @@ describe("Registration", function () {
         error.message.should.startWith('ENOENT');
         done();
       };
-      dirReader.getDirItems({dirPath: './mock_does_not_exist'}, callback);
+      dirReader.getDirItems('./mock_does_not_exist', callback);
     });
   });
 
@@ -55,7 +55,7 @@ describe("Registration", function () {
         done();
       };
       dirItems[1].dirPath = './mock_does_not_exist/';
-      dirReader.getFileContents({dirItem: dirItems[1]}, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
     });
     it("is not a valid file name", function(done) {
       var callback = function(error, data) {
@@ -64,7 +64,7 @@ describe("Registration", function () {
         done();
       };
       dirItems[1].fileName = 'doesNotExist.txt';
-      dirReader.getFileContents({dirItem: dirItems[1]}, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
     });
   });
 });
