@@ -56,6 +56,22 @@ describe("Registration", function () {
       };
       dirReader.getDirItems('./mock_does_not_exist', callback);
     });
+    it("does not specify a callback", function(done) {
+      try {
+        dirReader.getDirItems('./mock_does_not_exist');
+      } catch (error) {
+        error.message.should.equal('callback is required and it must be a function');
+        done();
+      }
+    });
+    it("does not specify a callback as a function", function(done) {
+      try {
+        dirReader.getDirItems('./mock_does_not_exist', {});
+      } catch (error) {
+        error.message.should.equal('callback is required and it must be a function');
+        done();
+      }
+    });
   });
 
   describe("an invalid getFileContents call", function () {
