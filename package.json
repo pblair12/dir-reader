@@ -1,6 +1,6 @@
 {
   "name": "dir-reader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This module will read a directory of files and return an array containing an entry for each file.  Each entry will have a fileName and a fileContents property.",
   "main": "index.js",
   "scripts": {

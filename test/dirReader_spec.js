@@ -32,7 +32,18 @@ describe("Registration", function () {
         dirItems[1].fileContent.should.equal('file2 contents');
         done();
       };
-      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, callback);
+    });
+    it("is specifies an optional encoding argument", function(done) {
+      var callback = function(error, data) {
+        (error === null).should.be.true;
+        dirItems[1] = data;
+        dirItems[1].fileName.should.equal('file2.txt');
+        dirItems[1].dirPath.should.equal('./test/mock/');
+        dirItems[1].fileContent.should.equal('file2 contents');
+        done();
+      };
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, 'utf8', callback);
     });
   });
 
@@ -55,7 +66,7 @@ describe("Registration", function () {
         done();
       };
       dirItems[1].dirPath = './mock_does_not_exist/';
-      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, callback);
     });
     it("is not a valid file name", function(done) {
       var callback = function(error, data) {
@@ -64,7 +75,55 @@ describe("Registration", function () {
         done();
       };
       dirItems[1].fileName = 'doesNotExist.txt';
-      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, null, callback);
+      dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, callback);
+    });
+    it("does not specify a dirPath", function(done) {
+      try {
+        dirReader.getFileContents();
+      } catch (error) {
+        error.message.should.equal('dirPath is a required parameter and it must be a string');
+        done();
+      }
+    });
+    it("is a non string dirPath", function(done) {
+      try {
+        dirReader.getFileContents({});
+      } catch (error) {
+        error.message.should.equal('dirPath is a required parameter and it must be a string');
+        done();
+      }
+    });
+    it("does not specify a fileName", function(done) {
+      try {
+        dirReader.getFileContents(dirItems[1].dirPath);
+      } catch (error) {
+        error.message.should.equal('fileName is a required parameter and it must be a string');
+        done();
+      }
+    });
+    it("is a non string fileName", function(done) {
+      try {
+        dirReader.getFileContents(dirItems[1].dirPath, {});
+      } catch (error) {
+        error.message.should.equal('fileName is a required parameter and it must be a string');
+        done();
+      }
+    });
+    it("does not specify a callback", function(done) {
+      try {
+        dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName);
+      } catch (error) {
+        error.message.should.equal('callback is required and it must be a function');
+        done();
+      }
+    });
+    it("does not specify a callback as a function", function(done) {
+      try {
+        dirReader.getFileContents(dirItems[1].dirPath, dirItems[1].fileName, {});
+      } catch (error) {
+        error.message.should.equal('callback is required and it must be a function');
+        done();
+      }
     });
   });
 });
